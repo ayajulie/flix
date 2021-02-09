@@ -8,21 +8,10 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
-    <header class= "row space-beetwen">
-      <nav>
-        <div class="logo">
-          <%= link_to image_tag('logo'), root_path, alt:"logo" %>
-        </div>
-        <%= link_to "All Movies", movies_path %>
-      </nav>
-    </header>
+    <%= render 'layouts/header' %>
     <div class="content">
       <%= yield %>
     </div>
-    <footer>
-      <p>Copyright &copy; 
-        <%= Time.now.year %>
-      </p>
-    </footer>
+    <%= render 'layouts/footer' %>
   </body>
 </html>
