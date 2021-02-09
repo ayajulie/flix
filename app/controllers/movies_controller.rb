@@ -8,16 +8,12 @@ class MoviesController < ApplicationController
   end
 
   def create
-    @movie = Movie.new
-
-    respond_to do |format|
-      if @movie.save
-        flash[:notice] = 'Movie was successfully created.'
-        format.html { redirect_to(@movie) }
-
-      else
-        format.html { render action: 'new' }
-      end
+    @movie = Movie.new(movie_params)
+    if @movie.save
+      flash[:notice] = 'Movie was successfully created.'
+      redirect_to @movie
+    else
+      render :new
     end
   end
 
