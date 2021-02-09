@@ -17,7 +17,8 @@
       <%= link_to "Edit", edit_movie_path(@movie), class: "button" %>
     </section>
     <section class="navigation">
-      <p> <%= link_to 'Back to all Movies', movies_path %> </p>
+      <p> <%= link_to 'Back to all Movies', @movie, class: "button" %> </p>
+      <p> <%= link_to 'Delete', @movie, class: "button", method: :delete, data: {confirm: 'Are you sure?'} %> </p>
     </section>
   </div>
 </section>
