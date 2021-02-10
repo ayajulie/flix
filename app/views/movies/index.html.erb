@@ -1,8 +1,11 @@
 <% @movies.each do |movie| %>
   <section class="movie">
+    <div class="image">
+      <%= image_tag movie.image_file_name %>
+    </div>
     <div class="summary">
       <h2>
-        <%= link_to movie.title, movie %>
+        <%= link_to movie.title, movie_path(movie) %>
       </h2>
       <h3>
         <%= total_gross(movie) %>
@@ -13,6 +16,6 @@
     </div>
   </section>
 <% end %>
-<section class='admin'>
-  <%= link_to "Add A New Movie", new_movie_path %>
+<section class="admin">
+  <%= link_to 'Add New Movie', new_movie_path, class: 'button' %>
 </section>
