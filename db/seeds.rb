@@ -1,3 +1,5 @@
+Movie.destroy_all
+
 Movie.create!([
                 {
                   title: 'Avengers: Endgame',
