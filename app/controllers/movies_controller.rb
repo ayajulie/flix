@@ -3,6 +3,24 @@ class MoviesController < ApplicationController
     @movies = Movie.released
   end
 
+  def show
+    @movie = Movie.find(params[:id])
+  end
+
+  def edit
+    @movie = Movie.find(params[:id])
+  end
+
+  def update
+    @movie = Movie.find(params[:id])
+    if @movie.update(movie_params)
+      flash[:notice] = 'Movie was successfully updated.'
+      redirect_to @movie
+    else
+      render :edit
+    end
+  end
+
   def new
     @movie = Movie.new
   end
@@ -20,26 +38,7 @@ class MoviesController < ApplicationController
   def destroy
     @movie = Movie.find(params[:id])
     @movie.destroy
-
-    redirect_to movies_path
-  end
-
-  def show
-    @movie = Movie.find(params[:id])
-  end
-
-  def edit
-    @movie = Movie.find(params[:id])
-  end
-
-  def update
-    @movie = Movie.find(params[:id])
-    if @movie.update(movie_params)
-      flash[:notice] = 'Movie was successfully updated.'
-      redirect_to @movie
-    else
-      render :edit
-    end
+    redirect_to movies_url, alert: 'Movie successfully deleted!'
   end
 
   private
