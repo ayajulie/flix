@@ -27,7 +27,11 @@
     </section>
     <section class="navigation">
       <p> <%= link_to 'Back to all Movies', @movie_path %> </p>
-      <p> <%= link_to 'Delete', @movie %> </p>
+      <p>
+        <%= link_to 'Delete', movie_path(@movie), class: 'button',
+                method: :delete,
+                data: { confirm: 'Are you sure?' } %>
+      </p>
     </section>
   </div>
 </section>
