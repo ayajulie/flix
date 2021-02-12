@@ -22,11 +22,15 @@
         <td><%= total_gross(@movie) %></td>
       </tr>
     </table>
+    <div class="reviews">
+      <%= link_to pluralize(@movie.reviews.size, "review"),
+                  movie_reviews_path(@movie) %>
+    </div>
     <section class="admin">
       <%= link_to "Edit", edit_movie_path(@movie), class: "button" %>
     </section>
     <section class="navigation">
-      <p> <%= link_to 'Back to all Movies', @movie_path %> </p>
+      <p> <%= link_to 'Back to all Movies', @movies_path %> </p>
       <p>
         <%= link_to 'Delete', movie_path(@movie), class: 'button',
                 method: :delete,
