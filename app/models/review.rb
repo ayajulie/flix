@@ -8,7 +8,7 @@ class Review < ApplicationRecord
     in: STARS,
     message: 'must be between 1 and 5'
   }
-
+  # define the number of stars as percentage then look in the shared?template
   def stars_as_percent
     (stars / 5.0) * 100.0
   end
