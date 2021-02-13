@@ -8,15 +8,13 @@
     <p><%= @movie.director %></p>
     <p><%= @movie.duration %></p>
     <p><%= @movie.description %></p>
-
     <table>
       <tr>
         <th>Total Gross:</th>
         <td><%= total_gross(@movie) %></td>
       </tr>
     </table>
-    
-    <P> <%= link_to "Write a review", new_movie_review_path(@movie), class: "review" %> </P>
+    <P> <%= link_to "Write a review", new_movie_review_path(@movie, class: "review") %> </P>
     <div class="reviews">
       <%= link_to pluralize(@movie.reviews.size, "review"),
                   movie_reviews_path(@movie) %>
@@ -24,6 +22,7 @@
     <section class="admin">
       <%= link_to "Edit", edit_movie_path(@movie), class: "button" %>
     </section>
+    <%= render 'reviews/form', :review => @review %>
     <section class="navigation">
       <p> <%= link_to 'Back to all Movies', @movies_path %> </p>
       <p>
