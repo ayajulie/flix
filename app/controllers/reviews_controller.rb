@@ -10,12 +10,14 @@ class ReviewsController < ApplicationController
 
   def create
     @review = @movie.reviews.new(review_params)
+    @review.movie = @movie
 
     if @review.save
       redirect_to movie_reviews_path(@movie),
                   notice: 'Thanks for your review!'
     else
       render :new
+      # render 'movies/show'
     end
   end
 

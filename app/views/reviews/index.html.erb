@@ -10,7 +10,7 @@
           <%= time_ago_in_words(review.created_at) %> ago
         </span>
       </p>
-      <p>
+      <p id="reveiew- <%=review.id %> ">
         <%= review.comment %>
       </p>
       <%# <p><%= link_to "Edit", edit_movie_review_path(@movie, @review)  %></p>
