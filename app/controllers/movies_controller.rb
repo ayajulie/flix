@@ -17,6 +17,7 @@ class MoviesController < ApplicationController
     if @movie.update(movie_params)
       flash[:notice] = 'Movie was successfully updated.'
       redirect_to @movie
+      # same as redirect_to event_path(@event)
     else
       render :edit
     end
