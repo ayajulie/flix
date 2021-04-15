@@ -32,4 +32,21 @@
       </p>
     </section>
   </div>
+  <ul class="reviews">
+    <% @movie.reviews.each do |review| %>
+      <li>
+        <%= render "shared/stars", percent: review.stars_as_percent %>
+        <p>
+          <%= review.name %>
+          <span class="date">
+            <%= time_ago_in_words(review.created_at) %> ago
+          </span>
+        </p>
+        <p id="reveiew- <%=review.id %> ">
+          <%= review.comment %>
+        </p>
+      </p>
+    </li>
+  <% end %>
+</ul>
 </section>
