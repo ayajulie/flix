@@ -19,4 +19,12 @@ class Movie < ApplicationRecord
   def self.released
     where('released_on < ?', Time.now).order(released_on: :desc)
   end
+
+  def average_stars
+    reviews.average(:stars) || 0.0
+  end
+
+  def average_stars_as_percent
+    (average_stars / 5.0) * 100
+  end
 end

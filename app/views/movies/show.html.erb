@@ -16,6 +16,7 @@
     </table>
     <P> <%= link_to "Write a review", new_movie_review_path(@movie, class: "review") %> </P>
     <div class="reviews">
+      <%= render "shared/stars", percent: @movie.average_stars_as_percent %>
       <%= link_to pluralize(@movie.reviews.size, "review"),
                   movie_reviews_path(@movie) %>
     </div>
@@ -35,7 +36,7 @@
       <ul class="reviews">
         <% @movie.reviews.each do |review| %>
           <li>
-            <%= render "shared/stars", percent: review.stars_as_percent %>
+            <%= render "shared/stars", percent: @movie.average_stars_as_percent %>
             <p>
               <%= review.name %>
               <span class="date">
