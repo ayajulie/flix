@@ -20,12 +20,7 @@
   </section>
 <% end %>
 <section class="admin">
-  <%= link_to 'Add New Movie', new_movie_path, class: 'button' %>
-</section>
-<ul>
-  <% @movies.each do |movie| %>
-    <li>
-      movie.name
-    </li>
+  <% if current_user_admin? %>
+    <%= link_to 'Add New Movie', new_movie_path, class: 'button' %>
   <% end %>
-</ul>
+</section>
