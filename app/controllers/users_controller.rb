@@ -9,6 +9,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @reviews = @user.reviews
   end
 
   def new
@@ -31,7 +32,7 @@ class UsersController < ApplicationController
 
   def update
     # @user = User.find(params[:id]) not needed anymore because called in the before_action require correct user
-    @user = User.find
+    @user = User.find(params[:id])
     session[:user_id] = @user.id
     if @user.update(user_params)
       redirect_to @user, notice: 'Account sucessfully updated!'
