@@ -12,6 +12,7 @@ class MoviesController < ApplicationController
     @review = Review.new
     @fans = @movie.fans
     @favorite = current_user.favorites.find_by(movie_id: @movie.id) if current_user
+    @genres = @movie.genres
   end
 
   def edit
@@ -56,6 +57,6 @@ class MoviesController < ApplicationController
   end
 
   def movie_params
-    params.require(:movie).permit(:title, :description, :total_gross, :released_on, :rating, :director, :duration, :image_file_name)
+    params.require(:movie).permit(:title, :description, :total_gross, :released_on, :rating, :director, :duration, :image_file_name, genre_ids: [])
   end
 end

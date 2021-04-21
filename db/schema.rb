@@ -14,10 +14,10 @@ ActiveRecord::Schema.define(version: 2021_04_21_172000) do
 
   create_table "characterizations", force: :cascade do |t|
     t.integer "movie_id", null: false
-    t.integer "category_id", null: false
+    t.integer "genre_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["category_id"], name: "index_characterizations_on_category_id"
+    t.index ["genre_id"], name: "index_characterizations_on_genre_id"
     t.index ["movie_id"], name: "index_characterizations_on_movie_id"
   end
 
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 2021_04_21_172000) do
     t.boolean "admin", default: false
   end
 
-  add_foreign_key "characterizations", "categories"
+  add_foreign_key "characterizations", "genres"
   add_foreign_key "characterizations", "movies"
   add_foreign_key "favorites", "movies"
   add_foreign_key "favorites", "users"

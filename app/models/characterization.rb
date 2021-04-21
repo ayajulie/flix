@@ -1,4 +1,4 @@
 class Characterization < ApplicationRecord
   belongs_to :movie
-  belongs_to :category
+  belongs_to :genre
 end
