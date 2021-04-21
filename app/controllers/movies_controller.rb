@@ -1,14 +1,14 @@
 class MoviesController < ApplicationController
   before_action :require_signin, except: %i[index show]
   before_action :require_admin, except: %i[index show]
-  before_action :set_movie, except: %i[index new show]
+  before_action :set_movie, except: %i[index new]
 
   def index
     @movies = Movie.released
   end
 
   def show
-    @movie = Movie.find(params[:id])
+    # @movie = Movie.find(params[:id])
     @review = Review.new
     @fans = @movie.fans
     @favorite = current_user.favorites.find_by(movie_id: @movie.id) if current_user
@@ -52,7 +52,7 @@ class MoviesController < ApplicationController
   private
 
   def set_movie
-    @movie = Movie.find(params[:movie_id])
+    @movie = Movie.find(params[:id])
   end
 
   def movie_params

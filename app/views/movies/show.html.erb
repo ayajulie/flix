@@ -28,7 +28,7 @@
       <%= link_to pluralize(@movie.reviews.size, "review"),
                   movie_reviews_path(@movie) %>
     </div>
-    <section class="admin">
+    <section class="admin">¬
       <% if current_user_admin? %>
         <%= link_to "Edit", edit_movie_path(@movie), class: "button" %>
         <%= link_to 'Delete', movie_path(@movie), class: "button",
