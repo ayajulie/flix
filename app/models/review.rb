@@ -13,4 +13,7 @@ class Review < ApplicationRecord
   def stars_as_percent
     (stars / 5.0) * 100.0
   end
+  scope :past_n_days, ->(days = 7) { where('created_at >= ?', days.days.ago) }
+  # .days.ago is a ruby method to get the days ago
+  # Ex:- scope :active, -> {where(:active => true)}
 end
