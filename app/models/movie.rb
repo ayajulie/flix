@@ -1,4 +1,6 @@
 class Movie < ApplicationRecord
+  before_save :set_slug
+
   has_many :reviews, dependent: :destroy
   has_many :reviews, -> { order(created_at: :desc) }, dependent: :destroy
   has_many :favorites, dependent: :destroy
@@ -8,7 +10,8 @@ class Movie < ApplicationRecord
 
   RATINGS = %w[G PG PG-13 R NC-17].freeze
 
-  validates :title, :released_on, :duration, presence: true
+  validates :released_on, :duration, presence: true
+  validates :title, presence: true, uniqueness: true
   validates :description, length: { minimum: 25 }
   validates :total_gross, numericality: { greater_than_or_equal_to: 0 }
   validates :image_file_name, format: {
@@ -20,23 +23,17 @@ class Movie < ApplicationRecord
   def flop?
     total_gross.blank? || total_gross < 255_000_000
   end
-  # Ex:- scope :active, -> {where(:active => true)}
 
-  # def self.released
-  #   where('released_on < ?', Time.now).order(released_on: :desc)
-  # end
-  # scope :released, -> { where("released_on < ?", Time.now).order("released_on desc") }
+  def to_param
+    slug
+  end
   scope :released, -> { where('released_on < ?', Time.now).order(released_on: :desc) }
-  # it's called a lambda
-
   scope :upcoming, -> { where('released_on > ?', Time.now).order(released_on: :asc) }
   scope :recent, ->(max = 5) { released.limit(max) }
   scope :hits, -> { released.where('total_gross >= 300000000').order(total_gross: :desc) }
   scope :flops, -> { released.where('total_gross < 225000000').order(total_gross: :asc) }
   scope :grossed_less_than, ->(amount) { where('total_gross < ?', amount) }
   scope :grossed_greater_than, ->(_amout) { where('total_gross >  ?', amount) }
-  # Ex:- scope :active, -> {where(:active => true)}
-  # Ex:- scope :active, -> {where(:active => true)}
 
   def average_stars
     reviews.average(:stars) || 0.0
@@ -44,5 +41,11 @@ class Movie < ApplicationRecord
 
   def average_stars_as_percent
     (average_stars / 5.0) * 100
+  end
+
+  private
+
+  def set_slug
+    self.slug = title.parameterize
   end
 end
