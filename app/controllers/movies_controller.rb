@@ -1,18 +1,30 @@
 class MoviesController < ApplicationController
   before_action :require_signin, except: %i[index show]
   before_action :require_admin, except: %i[index show]
-  before_action :set_slug, only: %i[show edit update destroy]
+  before_action :set_movie, only: %i[show edit update destroy]
   # before_action :set_movie, except: %i[index new show]
 
   def index
-    @movies = Movie.send(movies_filter)
+    # @movies = Movie.send(movies_filter)
+    @movies = case params[:filter]
+              when 'upcoming'
+                Movie.upcoming
+              when 'recent'
+                Movie.recent
+              when 'hits'
+                Movie.hits
+              when 'flops'
+                Movie.flops
+              else
+                Movie.released
+              end
   end
 
   def show
     @review = Review.new
+    @genres = @movie.genres
     @fans = @movie.fans
     @favorite = current_user.favorites.find_by(movie_id: @movie.id) if current_user
-    @genres = @movie.genres
   end
 
   def edit; end
@@ -52,7 +64,7 @@ class MoviesController < ApplicationController
   #   @movie = Movie.find(params[:id])
   # end
 
-  def set_slug
+  def set_movie
     @movie = Movie.find_by!(slug: params[:id])
   end
 

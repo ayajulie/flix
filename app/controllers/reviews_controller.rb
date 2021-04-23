@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
-  before_action :set_slug
   before_action :require_signin
+  before_action :set_movie
   def index
     @reviews = @movie.reviews.order('created_at DESC')
   end
@@ -33,7 +33,7 @@ class ReviewsController < ApplicationController
     params.require(:review).permit(:comment, :stars)
   end
 
-  def set_slug
+  def set_movie
     @movie = Movie.find_by!(slug: params[:id])
   end
   # def set_movie
